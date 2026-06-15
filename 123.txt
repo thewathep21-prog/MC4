@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MC 4.0 - Marshal Coordination 4.0</title>
+
+<style>
+body{
+    font-family: Tahoma, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+}
+
+.header{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    max-width:700px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    font-weight:bold;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:5px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+.send-btn{
+    background:#0066cc;
+}
+
+.sos-btn{
+    background:red;
+}
+
+.result{
+    display:none;
+    margin-top:20px;
+    padding:15px;
+    background:#e8f5e9;
+    border-radius:5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    <h1>MC 4.0</h1>
+    <h3>Marshal Coordination 4.0</h3>
+    <p>ระบบประสานงานและขอความช่วยเหลือภายในศาล</p>
+</div>
+
+<div class="container">
+
+<form id="requestForm">
+
+<label>ชื่อผู้แจ้ง</label>
+<input type="text" id="requester" required>
+
+<label>สถานที่</label>
+<select id="location">
+    <option>ห้องพิจารณาคดี 1</option>
+    <option>ห้องพิจารณาคดี 2</option>
+    <option>ห้องพิจารณาคดี 3</option>
+    <option>ห้องประชุม</option>
+    <option>จุดบริการประชาชน</option>
+</select>
+
+<label>หน่วยงานที่ต้องการ</label>
+<select id="department">
+    <option>ตำรวจศาล</option>
+    <option>รปภ.</option>
+</select>
+
+<label>เจ้าหน้าที่ที่ต้องการ</label>
+<select id="staff">
+    <option>ไม่ระบุ</option>
+    <option>ตำรวจศาล 1</option>
+    <option>ตำรวจศาล 2</option>
+    <option>รปภ. 1</option>
+    <option>รปภ. 2</option>
+</select>
+
+<label>ประเภทคำร้อง</label>
+<select id="type">
+    <option>ขอความช่วยเหลือ</option>
+    <option>ช่วยยกของ</option>
+    <option>บุคคลต้องสงสัย</option>
+    <option>บุคคลก่อความวุ่นวาย</option>
+    <option>เหตุฉุกเฉิน</option>
+    <option>อื่น ๆ</option>
+</select>
+
+<label>รายละเอียด</label>
+<textarea id="detail" rows="4"></textarea>
+
+<button type="submit" class="send-btn">
+ส่งคำร้อง
+</button>
+
+<button type="button" class="sos-btn" onclick="sendSOS()">
+🚨 SOS ฉุกเฉิน
+</button>
+
+</form>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+let requestNo = 1;
+
+document.getElementById("requestForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let requester = document.getElementById("requester").value;
+let location = document.getElementById("location").value;
+let department = document.getElementById("department").value;
+let staff = document.getElementById("staff").value;
+let type = document.getElementById("type").value;
+
+let no = "MC-" + String(requestNo).padStart(4,"0");
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("result").innerHTML = `
+<h3>✅ ส่งคำร้องเรียบร้อย</h3>
+<p><b>เลขที่คำร้อง:</b> ${no}</p>
+<p><b>ผู้แจ้ง:</b> ${requester}</p>
+<p><b>สถานที่:</b> ${location}</p>
+<p><b>หน่วยงาน:</b> ${department}</p>
+<p><b>เจ้าหน้าที่:</b> ${staff}</p>
+<p><b>ประเภท:</b> ${type}</p>
+<p><b>สถานะ:</b> รอรับเรื่อง</p>
+`;
+
+requestNo++;
+
+});
+
+function sendSOS(){
+
+let location = document.getElementById("location").value;
+
+alert(
+"🚨 แจ้งเหตุฉุกเฉิน\n\n" +
+"สถานที่ : " + location +
+"\n\nกรุณาส่งเจ้าหน้าที่เข้าตรวจสอบทันที"
+);
+
+}
+
+</script>
+
+</body>
+</html>
