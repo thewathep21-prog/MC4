@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MC 4.0</title>
+
+<style>
+body{
+font-family:Tahoma,sans-serif;
+background:#f4f6f9;
+margin:0;
+padding:0;
+}
+
+.header{
+background:#003366;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.container{
+max-width:700px;
+margin:20px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+label{
+display:block;
+margin-top:10px;
+font-weight:bold;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:5px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#0066cc;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+.result{
+display:none;
+margin-top:20px;
+background:#e8f5e9;
+padding:15px;
+border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+<h1>MC 4.0</h1>
+<h3>Marshal Coordination 4.0</h3>
+<p>ระบบขอความช่วยเหลือภายในศาล</p>
+</div>
+
+<div class="container">
+
+<form id="mcform">
+
+<label>ชื่อผู้แจ้ง</label>
+<input type="text" id="name" required>
+
+<label>หน่วยงานที่ต้องการ</label>
+<select id="dept">
+<option>ตำรวจศาล</option>
+<option>รปภ.</option>
+</select>
+
+<label>เจ้าหน้าที่ที่ต้องการ</label>
+<select id="staff">
+<option>ไม่ระบุ</option>
+<option>ส.ต.ต. สมชาย ใจดี</option>
+<option>ส.ต.ต. วิทยา มั่นคง</option>
+<option>นายอนันต์ สุขใจ</option>
+<option>นายสุชาติ พิทักษ์</option>
+</select>
+
+<label>ประเภทคำร้อง</label>
+<select id="type">
+<option>ขอความช่วยเหลือ</option>
+<option>ช่วยยกของ</option>
+<option>บุคคลต้องสงสัย</option>
+<option>เหตุฉุกเฉิน</option>
+</select>
+
+<label>รายละเอียด</label>
+<textarea id="detail" rows="4"></textarea>
+
+<button type="submit">
+ส่งคำร้อง
+</button>
+
+</form>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+let runningNo = 1;
+
+document.getElementById("mcform").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let no = "MC-" + String(runningNo).padStart(4,"0");
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("result").innerHTML = `
+<h3>✅ ส่งคำร้องสำเร็จ</h3>
+<p>เลขที่คำร้อง : ${no}</p>
+<p>สถานะ : รอรับเรื่อง</p>
+`;
+
+runningNo++;
+
+});
+
+</script>
+
+</body>
+</html>
